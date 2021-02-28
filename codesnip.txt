@@ -1,0 +1,15 @@
+>> JWT 
+
+const jwt = require('jsonwebtoken');
+
+const myfunction = async() => {
+    // to create authentication tokens jwt.sign();
+    const token = jwt.sign({ _id: 'abc123' }, 'thisismyid', { expiresIn : '7 days'});
+                            payload          secretOrPrivatekey  
+    console.log(token)
+
+    const data = jwt.verify(token, 'thisismyid'); // autheticated or not
+    console.log(data)                    
+}
+
+myfunction();
