@@ -78,7 +78,7 @@ userSchema.methods.toJSON = function() {
 // methods are accessible on instances, sometimes called 'instance methods'
 userSchema.methods.generateAuthToken = async function() {
     const user = this;
-    const token = jwt.sign({ _id: user._id.toString() }, JWT_SECRET);
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
 
     user.tokens = user.tokens.concat({ token })
     await user.save();
@@ -89,7 +89,6 @@ userSchema.methods.generateAuthToken = async function() {
 // statics are accessible on the model, sometimes called 'model methods'
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({email});
-
     if(!user) {
         throw new Error("Unable to login");
     }
